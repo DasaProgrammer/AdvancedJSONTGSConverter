@@ -31,10 +31,12 @@ You need:
    <https://www.python.org/downloads/>
 3. The **Lottie CLI** installed via `pip`:
 
+4. ⚠️ During Python installation, check the box:
+"Add Python to PATH"
+so that python and lottie_convert.py are available in your terminal.
+
+
 ```bash
 pip install "lottie[cli]"
 
 
-⚠️ During Python installation, check the box:
-"Add Python to PATH"
-so that python and lottie_convert.py are available in your terminal.
