@@ -9,6 +9,21 @@ Perfect for animators, sticker creators, designers, and developers making Telegr
 
 ---
 
+## 🖼 Screenshots
+
+<div align="center">
+
+### 🔧 Folder Structure
+<img src="images/FolderStructure.png" width="600"/>
+
+---
+
+### 🍒 Example Sticker Output
+<img src="images/ExampleStickerResults.png" width="400"/>
+
+</div>
+
+
 ## ✅ Features
 
 * 🎯 **Zero command line** — drag & drop your JSON file
