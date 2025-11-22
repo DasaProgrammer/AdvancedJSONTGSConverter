@@ -70,17 +70,11 @@ if errorlevel 1 (
 echo Running converter...
 echo.
 
-%PYTHON% - <<EOF
+:: Optional: Show Python version info (Windows-safe)
+%PYTHON% --version
+lottie_convert.py --help >nul 2>&1
 
-# Just display version info nicely
-import os, subprocess
-try:
-    subprocess.run(["lottie_convert.py", "--help"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-except Exception:
-    pass
-
-EOF
-
+:: Perform conversion
 lottie_convert.py "%INPUT%" "%OUTPUT%" --output-format tgs --fps 60 --optimize 2
 
 if errorlevel 1 (
