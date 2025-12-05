@@ -34,11 +34,11 @@ echo.
 :: Detect python or py
 where python >nul 2>&1
 if %errorlevel%==0 (
-    set PYTHON=python
+    set "PYTHON=python"
 ) else (
     where py >nul 2>&1
     if %errorlevel%==0 (
-        set PYTHON=py
+        set "PYTHON=py"
     ) else (
         echo ERROR: Python is not installed or not on PATH.
         echo.
@@ -53,9 +53,15 @@ if %errorlevel%==0 (
 echo Using Python: %PYTHON%
 echo.
 
-:: Check if lottie_convert.py exists on PATH
-where lottie_convert.py >nul 2>&1
-if errorlevel 1 (
+:: Locate lottie_convert.py on PATH and get its full path
+set "LC_PATH="
+for /f "usebackq delims=" %%P in (`where lottie_convert.py 2^>nul`) do (
+    set "LC_PATH=%%P"
+    goto :have_lottie
+)
+
+:have_lottie
+if not defined LC_PATH (
     echo ERROR: "lottie_convert.py" not found on PATH.
     echo.
     echo Install the Lottie CLI with:
@@ -67,15 +73,16 @@ if errorlevel 1 (
     exit /b 1
 )
 
+echo Using converter: %LC_PATH%
+echo.
 echo Running converter...
 echo.
 
 :: Optional: Show Python version info (Windows-safe)
 %PYTHON% --version
-lottie_convert.py --help >nul 2>&1
 
-:: Perform conversion
-lottie_convert.py "%INPUT%" "%OUTPUT%" --output-format tgs --fps 60 --optimize 2
+:: Perform conversion via Python so .py file associations don't matter
+"%PYTHON%" "%LC_PATH%" "%INPUT%" "%OUTPUT%" --output-format tgs --fps 60 --optimize 2
 
 if errorlevel 1 (
     echo.
